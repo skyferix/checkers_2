@@ -1,10 +1,13 @@
 import { useEffect, useReducer, useState } from "react";
 import { GameManager } from "../../game-driver/GameManager";
+import { GameTile } from "../../game-driver/Tile";
+import Tile from "../cell/Tile";
 import Row from "../row/Row";
+import Statistics from "../statistics/Statistics";
 import './board.scss';
 
 const Board = (props: any) => {
-	const [gameManager, setGameManager] = useState(new GameManager());
+	const [gameManager] = useState(new GameManager());
 	const [, forceUpdate] = useReducer(x => x + 1, 0);
 
 	useEffect(() => {
@@ -12,11 +15,11 @@ const Board = (props: any) => {
 		forceUpdate();
 	}, [gameManager])
 
-	const onSelectTile = (tile: any) => {
+	const onSelectTile = (tile: GameTile) => {
 		const selectedTile = gameManager.getSelectedTile();
 		if (selectedTile) {
-			gameManager.movePiece(selectedTile, tile);
-			gameManager.setSelectedTile(null);
+			gameManager.getBoard().movePiece(selectedTile, tile);
+			gameManager.getBoard().setSelectedTile(null);
 		} else {
 			gameManager.selectTile(tile);
 		}
@@ -27,11 +30,11 @@ const Board = (props: any) => {
     <div className="container">
       <div className="board">
         {
-          gameManager.getGameBoard().length && gameManager.getGameBoard().map((tiles: any) => {
+          gameManager.getGameBoard().map(tiles => {
 						return (
 							<Row 
 								tiles={tiles}
-								onSelectTile={(tile: any) => onSelectTile(tile)}
+								onSelectTile={(tile: GameTile) => onSelectTile(tile)}
 								selectedTile={gameManager.getSelectedTile()}
 								possibleMoves={gameManager.getPossibleMoves()}
 							/>

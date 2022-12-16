@@ -13,7 +13,7 @@ const Piece = (props: any) => {
   }
 
   return(
-    <div className={`piece piece--${getColor(props.piece.belongsTo)}`}/>
+    <div className={`piece piece--${getColor(props.piece.getBelongsTo())}`}/>
   );
 }
 

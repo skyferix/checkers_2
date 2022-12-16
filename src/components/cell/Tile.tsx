@@ -1,3 +1,4 @@
+import { GameTile } from "../../game-driver/Tile";
 import { Coordinates, Move } from "../../game-driver/types/types";
 import Piece from "../piece/Piece";
 import './tile.scss';
@@ -7,9 +8,9 @@ const Tile = (props: any) => {
     return (coordinates.x++ - coordinates.y % 2) % 2 ? 'black' : 'white';
   }
 
-  const isTileActive = (tile: any) => {
+  const isTileActive = (tile: GameTile) => {
     const selectedTile = props.selectedTile;
-    if (!selectedTile || !tile.piece) return;
+    if (!selectedTile || !tile.getPiece()) return;
     return selectedTile.y === tile.y && selectedTile.x === tile.x; 
   }
 
@@ -19,19 +20,14 @@ const Tile = (props: any) => {
     });
   }
 
-  const coordinates = {
-          x: props.tile.x,
-          y: props.tile.y
-        } as Coordinates;
-
   return(
-    <div className={`tile tile--${getBackground(coordinates)} 
+    <div className={`tile tile--${getBackground(props.tile.getCoordinates())} 
       ${isTileActive(props.tile) ? 'active' : ''}
       ${possibleMove() ? 'can-move' : ''}
       `}
       onClick={() => props.onSelectTile(props.tile)}
     >
-      {props.tile.piece && <Piece piece={props.tile.piece}/>}
+      {props.tile.getPiece() && <Piece piece={props.tile.getPiece()}/>}
     </div>
   );
 }
