@@ -29,6 +29,7 @@ const Board = (props: any) => {
 
 	return (
     <div className="container">
+			<h1>Checkers</h1>
       <div className="board">
         {
           gameManager.getGameBoard().map(tiles => {
