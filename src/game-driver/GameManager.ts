@@ -23,7 +23,7 @@ export class GameManager {
     return this.board.getSelectedTile();
   }
 
-  private toggleTurn() {
+  public toggleTurn() {
     this.currentTurn = this.currentTurn === Player.BLACK ? Player.WHITE : Player.BLACK;
   }
 

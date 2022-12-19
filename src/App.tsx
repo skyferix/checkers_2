@@ -5,7 +5,6 @@ import { GameManager } from './game-driver/GameManager';
 function App() {
   const gameManager = new GameManager();
   gameManager.initialize();
-  // console.log(gameManager);
   return (
     <div className="App">
       <Board />

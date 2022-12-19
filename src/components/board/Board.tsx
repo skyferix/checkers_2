@@ -20,6 +20,7 @@ const Board = (props: any) => {
 		if (selectedTile) {
 			gameManager.getBoard().movePiece(selectedTile, tile);
 			gameManager.getBoard().setSelectedTile(null);
+			gameManager.toggleTurn();
 		} else {
 			gameManager.selectTile(tile);
 		}
